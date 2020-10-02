@@ -27,4 +27,12 @@ public class WebServices : MonoBehaviour
 
         return www;
     }
+
+    public static UnityWebRequest GetLogOut(string path) {
+        UnityWebRequest www = new UnityWebRequest(mainUrl + path);
+
+        www.downloadHandler = new DownloadHandlerBuffer();
+
+        return www;
+    }
 }

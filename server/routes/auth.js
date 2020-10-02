@@ -8,7 +8,7 @@ const User = require('../models/user.js');
 
 //Registration Logic
 router.post("/register", (req, res) => {
-    let newUser = new User({ username: req.body.username });
+    let newUser = new User({ username: req.body.username, scores: 0 });
 
     User.register(newUser, req.body.password, (err, createdUser) => {
         if(err) {
@@ -31,8 +31,23 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 
 //Log out Logic
 router.post("/logout", authMiddlewares.isLoggedIn, (req, res) => {
-    req.logOut();
-    return res.send(200);
+    req.logout();
+    console.log(req.user.username + "log out!");
+    return res.sendStatus(200);
 });
+
+//scores logic
+router.post("/scores", authMiddlewares.isLoggedIn, async (req, res) => {
+    let user = await User.findById(req.user._id);
+    User.updateOne({ username: user.username }, { $set: {user.scores + 1} });
+    //user.scores += 1;
+    console.log(user.scores);
+    return res.sendStatus(200);
+});
+// router.get('/logout', (req, res) => { 
+//     req.logout(); 
+//     req.session.destroy(); 
+//     res.redirect('/'); 
+// });
 
 module.exports = router;

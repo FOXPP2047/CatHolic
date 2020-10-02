@@ -11,7 +11,7 @@ public class LogInMannger : MonoBehaviour
     public InputField l_username;
     public InputField l_password;
     Coroutine loginCoroutine;
-
+    private bool isLoggedin = false;
     private User currUser = new User();
 
     public UnityEvent formSubmitted = new UnityEvent();
@@ -21,13 +21,15 @@ public class LogInMannger : MonoBehaviour
 
     private void Start() {
         formSubmitted.AddListener(claerForm);
+        //Debug.Log(currUser.username);
         //GetLoggedData();
     }
 
     private void Update() {
-        if (IsUserLoggedIn()) {
+        if (isLoggedin) {
             SceneManager.LoadScene("InGame");
         }
+        //Debug.Log(WebServices.CookieString);
     }
     public void SubmitLogInForm() {
         if (loginCoroutine == null) {
@@ -36,8 +38,15 @@ public class LogInMannger : MonoBehaviour
         formSubmitted.Invoke();
     }
 
+    public User getUser() {
+        return currUser;
+    }
     public void LogOut() {
         WebServices.CookieString = string.Empty;
+        //currUser.username = null;
+        //currUser.username = string.Empty;
+        GetLoggedData();
+        //SceneManager.LoadScene("SignIn");
     }
 
     public void GetLoggedData() {
@@ -45,9 +54,9 @@ public class LogInMannger : MonoBehaviour
     }
 
     public bool IsUserLoggedIn() {
-        if (string.IsNullOrEmpty(currUser.username))
-            return false;
-        else return true;
+        if (!string.IsNullOrEmpty(WebServices.CookieString))
+            return true;
+        else return false;
     }
     void claerForm() {
         l_username.text = "";
@@ -62,31 +71,35 @@ public class LogInMannger : MonoBehaviour
 
         yield return www.SendWebRequest();
 
-        string storedCookie = www.GetRequestHeader(COOKIE_HEADER_KEY);
+        string storedCookie = www.GetResponseHeader(COOKIE_HEADER_KEY);
+        Debug.Log(storedCookie);
         WebServices.CookieString = storedCookie;
-
+        Debug.Log(storedCookie);
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
         } else { 
             Debug.Log("LogIn Form submitted correctly " + www.downloadHandler.text);
-            StartCoroutine(GetUserData());
+            isLoggedin = true;
         }
+        GetLoggedData();
     }
 
     IEnumerator GetUserData() {
-        if(string.IsNullOrEmpty(WebServices.CookieString)) {
+        if(!string.IsNullOrEmpty(WebServices.CookieString)) {
+            //Debug.Log("Here in");
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
             yield return www.SendWebRequest();
 
             if (www.isHttpError || www.isNetworkError) {
                 Debug.Log(www.error);
-            }
-            else { 
+            } else { 
                 Debug.Log(www.downloadHandler.text);
-                currUser = JsonUtility.FromJson<User>(www.downloadHandler.text);
-                //loggedInData.text = user.username;
+                currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
+                currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
             }
+        } else {
+            Debug.Log("CookieString is null or empty");
         }
     }
 }
@@ -94,4 +107,5 @@ public class LogInMannger : MonoBehaviour
 [System.Serializable]
 public class User {
     public string username;
+    public int scores;
 }
