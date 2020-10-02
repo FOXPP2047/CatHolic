@@ -37,11 +37,13 @@ router.post("/logout", authMiddlewares.isLoggedIn, (req, res) => {
 });
 
 //scores logic
-router.post("/scores", authMiddlewares.isLoggedIn, async (req, res) => {
-    let user = await User.findById(req.user._id);
-    User.updateOne({ username: user.username }, { $set: {user.scores + 1} });
-    //user.scores += 1;
-    console.log(user.scores);
+router.post("/scores", authMiddlewares.isLoggedIn, (req, res) => {
+    User.updateOne({_id: req.user._id}, {
+        scores: req.user.scores + 1,  
+    }, function(err, res) {
+        if (err) console.log(err);
+    });
+
     return res.sendStatus(200);
 });
 // router.get('/logout', (req, res) => { 
