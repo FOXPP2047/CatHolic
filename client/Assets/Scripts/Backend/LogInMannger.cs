@@ -19,6 +19,9 @@ public class LogInMannger : MonoBehaviour
     private const string COOKIE_HEADER_KEY = "set-cookie";
     private const string COOKIE_AUTH_SESSION = "connect.sid";
 
+    public Image errorMessageBox;
+    public Text errorMessage;
+
     private void Start() {
         formSubmitted.AddListener(claerForm);
         //Debug.Log(currUser.username);
@@ -77,6 +80,11 @@ public class LogInMannger : MonoBehaviour
         Debug.Log(storedCookie);
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
+            errorMessageBox.gameObject.SetActive(true);
+            errorMessage.gameObject.SetActive(true);
+            errorMessage.text = www.error;
+            errorMessageBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
+            errorMessage.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
         } else { 
             Debug.Log("LogIn Form submitted correctly " + www.downloadHandler.text);
             isLoggedin = true;
@@ -93,6 +101,11 @@ public class LogInMannger : MonoBehaviour
 
             if (www.isHttpError || www.isNetworkError) {
                 Debug.Log(www.error);
+                errorMessageBox.gameObject.SetActive(true);
+                errorMessage.gameObject.SetActive(true);
+                errorMessage.text = www.error;
+                errorMessageBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
+                errorMessage.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
             } else { 
                 Debug.Log(www.downloadHandler.text);
                 currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
@@ -108,4 +121,5 @@ public class LogInMannger : MonoBehaviour
 public class User {
     public string username;
     public int scores;
+    public string[] items;
 }
