@@ -50,9 +50,13 @@ router.post("/scores", authMiddlewares.isLoggedIn, (req, res) => {
 //scores logic
 router.post("/buy", authMiddlewares.isLoggedIn, (req, res) => {
 
+    const findCatname = (name) => {
+        return name === req.user.items;
+    }
+
     if(req.user.scores >= 10) {
         User.updateOne({_id: req.user._id}, {
-            $push : { items : "New Item" + req.user.scores.toString() },
+            $push : { items : req.body.itemName },
             scores: req.user.scores - 10
         }, function(err, res) {
             if (err) console.log(err);

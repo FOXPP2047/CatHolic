@@ -9,6 +9,7 @@ public class LoggedDataInGame : MonoBehaviour
     private User currUser = new User();
     public Text currUsername;
     public Text currUserscores;
+    public GameObject cat;
 
     private void Start() {
         StartCoroutine(GetUserData());
@@ -52,8 +53,17 @@ public class LoggedDataInGame : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
                 currUsername.text = currUser.username;
                 currUserscores.text = currUser.scores.ToString();
+
+                foreach (string x in currUser.items)
+                {
+                    if (x.Equals("cat1"))
+                    {
+                        Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
+                    }
+                }
             }
         }
     }

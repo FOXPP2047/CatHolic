@@ -8,6 +8,7 @@ public class StoreButton : MonoBehaviour
 {
     private User currUser = new User();
     public Text currUserscores;
+    public GameObject cat;
     private void Start() {
         StartCoroutine(GetUserData());
     }
@@ -21,7 +22,9 @@ public class StoreButton : MonoBehaviour
         StartCoroutine(GetUserData());
     }
     IEnumerator BuyItemForm() {
-        UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "buy", "true");
+        WWWForm form = new WWWForm();
+        form.AddField("itemName", "cat1");
+        UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "buy", form);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError) {
@@ -57,7 +60,16 @@ public class StoreButton : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
                 currUserscores.text = currUser.scores.ToString();
+
+                foreach (string x in currUser.items)
+                {
+                    if (x.Equals("cat1"))
+                    {
+                        Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
+                    }
+                }
             }
         }
     }

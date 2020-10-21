@@ -115,6 +115,10 @@ public class LogInMannger : MonoBehaviour
             Debug.Log("CookieString is null or empty");
         }
     }
+
+    void BringCats() {
+
+    }
 }
 
 [System.Serializable]
