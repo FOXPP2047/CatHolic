@@ -18,7 +18,6 @@ public class Kitties : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
-                
             }
         }
     }
