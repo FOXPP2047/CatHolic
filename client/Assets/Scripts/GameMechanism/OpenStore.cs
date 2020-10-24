@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 public class OpenStore : MonoBehaviour
 {
     public Image ItemStoreFrame;
@@ -43,8 +44,10 @@ public class OpenStore : MonoBehaviour
 
         if (Input.GetMouseButton(0)) {
             for (int i = 0; i < items.Length; ++i) {
-                if (RectTransformUtility.RectangleContainsScreenPoint(items[i].GetComponent<RectTransform>(), Input.mousePosition, camera))
-                    Debug.Log(i);
+                if (RectTransformUtility.RectangleContainsScreenPoint(items[i].GetComponent<RectTransform>(), Input.mousePosition, camera)) {
+                    StartCoroutine(BuyItemForm(i));
+                    Debug.Log("Cat" + i.ToString());
+                }
             }
         }
     }
@@ -54,6 +57,19 @@ public class OpenStore : MonoBehaviour
         if (ItemStoreFrame.IsActive()) {
             CloseStoreButton();
             CatBringButton();
+        }
+    }
+
+    IEnumerator BuyItemForm(int num) {
+        WWWForm form = new WWWForm();
+        form.AddField("itemName", "Cat" + num.ToString());
+        UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "buy", form);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError) {
+            Debug.Log(www.error);
+        } else {
+            Debug.Log("Your Score will records right way.");
         }
     }
 }
