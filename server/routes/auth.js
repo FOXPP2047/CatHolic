@@ -31,7 +31,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 
 //Log out Logic
 router.post("/logout", authMiddlewares.isLoggedIn, (req, res) => {
-    req.logout();
+    req.logOut();
     console.log(req.body.username + " log out!");
     return res.sendStatus(200);
 });

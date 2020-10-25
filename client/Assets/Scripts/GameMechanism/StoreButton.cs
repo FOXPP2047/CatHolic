@@ -48,7 +48,7 @@ public class StoreButton : MonoBehaviour
     }
     IEnumerator GetUserData()
     {
-        if (!string.IsNullOrEmpty(WebServices.CookieString)) {
+        if (string.IsNullOrEmpty(WebServices.CookieString)) {
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
             yield return www.SendWebRequest();

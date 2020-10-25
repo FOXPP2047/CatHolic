@@ -24,8 +24,7 @@ public class BuyItem : MonoBehaviour
     }
 
     IEnumerator GetUserData() {
-        if (!string.IsNullOrEmpty(WebServices.CookieString))
-        {
+        //if (string.IsNullOrEmpty(WebServices.CookieString)) {
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
             yield return www.SendWebRequest();
@@ -39,6 +38,6 @@ public class BuyItem : MonoBehaviour
                 //currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
                 //currUserscores.text = currUser.scores.ToString();
             }
-        }
+        //}
     }
 }

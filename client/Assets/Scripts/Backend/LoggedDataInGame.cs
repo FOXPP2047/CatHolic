@@ -16,12 +16,7 @@ public class LoggedDataInGame : MonoBehaviour
     }
 
     public void LogOut() {
-        //StartCoroutine(GetLogOut());
-        //UnityWebRequest www = WebServices.GetLogOut("logout");
-        WebServices.CookieString = string.Empty;
-        StartCoroutine(GetUserData());
-        //currUser.username = string.Empty;
-        //StartCoroutine(GetLogOut());
+        StartCoroutine(GetLogOut());
         SceneManager.LoadScene("SignIn");
     }
 
@@ -43,7 +38,7 @@ public class LoggedDataInGame : MonoBehaviour
         }
     }
     IEnumerator GetUserData() {
-        if (!string.IsNullOrEmpty(WebServices.CookieString)) {
+        //if (string.IsNullOrEmpty(WebServices.CookieString)) {
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
             yield return www.SendWebRequest();
@@ -67,7 +62,7 @@ public class LoggedDataInGame : MonoBehaviour
                     }
                 }
             }
-        }
+        //}
     }
 
     IEnumerator SubmitScoreForm() {

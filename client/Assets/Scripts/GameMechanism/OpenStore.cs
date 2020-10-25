@@ -40,8 +40,6 @@ public class OpenStore : MonoBehaviour
     {
         if (ItemStoreFrame.IsActive()) {
             CloseStoreButton();
-            //CatBringButton();
-            //GetObjectName();
         }
     }
 }

@@ -21,7 +21,6 @@ public class LogInMannger : MonoBehaviour
 
     public Image errorMessageBox;
     public Text errorMessage;
-
     private void Start() {
         formSubmitted.AddListener(claerForm);
         //Debug.Log(currUser.username);
@@ -75,9 +74,7 @@ public class LogInMannger : MonoBehaviour
         yield return www.SendWebRequest();
 
         string storedCookie = www.GetResponseHeader(COOKIE_HEADER_KEY);
-        Debug.Log(storedCookie);
         WebServices.CookieString = storedCookie;
-        Debug.Log(storedCookie);
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
             errorMessageBox.gameObject.SetActive(true);
@@ -93,7 +90,7 @@ public class LogInMannger : MonoBehaviour
     }
 
     IEnumerator GetUserData() {
-        if(!string.IsNullOrEmpty(WebServices.CookieString)) {
+        //if(string.IsNullOrEmpty(WebServices.CookieString)) {
             //Debug.Log("Here in");
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
@@ -111,13 +108,9 @@ public class LogInMannger : MonoBehaviour
                 currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
             }
-        } else {
-            Debug.Log("CookieString is null or empty");
-        }
-    }
-
-    void BringCats() {
-
+        //} else {
+           // Debug.Log("CookieString is null or empty");
+        //}
     }
 }
 
