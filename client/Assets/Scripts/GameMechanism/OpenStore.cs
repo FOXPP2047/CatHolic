@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 public class OpenStore : MonoBehaviour
 {
     public Image ItemStoreFrame;
-    public Image[] items;
-    // Start is called before the first frame update
     void Start()
     {
         ItemStoreFrame.color = new Color32(0, 0, 0, 180);
@@ -38,38 +36,12 @@ public class OpenStore : MonoBehaviour
                 ItemStoreFrame.gameObject.SetActive(false);
         }
     }
-
-    public void CatBringButton() {
-        Camera camera = null;
-
-        if (Input.GetMouseButton(0)) {
-            for (int i = 0; i < items.Length; ++i) {
-                if (RectTransformUtility.RectangleContainsScreenPoint(items[i].GetComponent<RectTransform>(), Input.mousePosition, camera)) {
-                    StartCoroutine(BuyItemForm(i));
-                    Debug.Log("Cat" + i.ToString());
-                }
-            }
-        }
-    }
-
     void Update()
     {
         if (ItemStoreFrame.IsActive()) {
             CloseStoreButton();
-            CatBringButton();
-        }
-    }
-
-    IEnumerator BuyItemForm(int num) {
-        WWWForm form = new WWWForm();
-        form.AddField("itemName", "Cat" + num.ToString());
-        UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "buy", form);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError) {
-            Debug.Log(www.error);
-        } else {
-            Debug.Log("Your Score will records right way.");
+            //CatBringButton();
+            //GetObjectName();
         }
     }
 }

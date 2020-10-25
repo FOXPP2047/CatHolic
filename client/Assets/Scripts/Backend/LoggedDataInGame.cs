@@ -18,8 +18,10 @@ public class LoggedDataInGame : MonoBehaviour
     public void LogOut() {
         //StartCoroutine(GetLogOut());
         //UnityWebRequest www = WebServices.GetLogOut("logout");
-        //WebServices.CookieString = string.Empty;
-        currUser.username = string.Empty;
+        WebServices.CookieString = string.Empty;
+        StartCoroutine(GetUserData());
+        //currUser.username = string.Empty;
+        //StartCoroutine(GetLogOut());
         SceneManager.LoadScene("SignIn");
     }
 

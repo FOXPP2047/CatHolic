@@ -32,7 +32,7 @@ router.post("/login", passport.authenticate("local"), (req, res) => {
 //Log out Logic
 router.post("/logout", authMiddlewares.isLoggedIn, (req, res) => {
     req.logout();
-    console.log(req.user.username + "log out!");
+    console.log(req.body.username + " log out!");
     return res.sendStatus(200);
 });
 
@@ -49,11 +49,7 @@ router.post("/scores", authMiddlewares.isLoggedIn, (req, res) => {
 
 //scores logic
 router.post("/buy", authMiddlewares.isLoggedIn, (req, res) => {
-
-    const findCatname = (name) => {
-        return name === req.user.items;
-    }
-
+    console.log(req.body.itemName);
     if(req.user.scores >= 10) {
         User.updateOne({_id: req.user._id}, {
             $push : { items : req.body.itemName },
