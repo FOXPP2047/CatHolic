@@ -79,7 +79,7 @@ public class LoggedDataInGame : MonoBehaviour
 
     public void itemSearch(int start, string[] items) {
         for (int i = start; i < items.Length; ++i) {
-            Vector3 randomPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), Camera.main.farClipPlane / 2));
+            Vector3 randomPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range((float)Screen.width * 0.1f, (float)Screen.width * 0.9f), Random.Range((float)Screen.height / 2, (float)Screen.height * 0.7f), Camera.main.farClipPlane / 2));
             if (items[i].Equals("Cat1"))
             {
                 Instantiate(Cat1, randomPos, Cat1.transform.rotation);
@@ -87,12 +87,12 @@ public class LoggedDataInGame : MonoBehaviour
             }
             else if (items[i].Equals("Cat2"))
             {
-                Instantiate(Cat2, randomPos, Quaternion.identity);
+                Instantiate(Cat2, randomPos, Cat2.transform.rotation);
                 ++countCat;
             }
             else if (items[i].Equals("Cat3"))
             {
-                Instantiate(Cat3, randomPos, Quaternion.identity);
+                Instantiate(Cat3, randomPos, Cat3.transform.rotation);
                 ++countCat;
             }
         }
