@@ -49,7 +49,7 @@ router.post("/scores", authMiddlewares.isLoggedIn, (req, res) => {
 
 //scores logic
 router.post("/buy", authMiddlewares.isLoggedIn, (req, res) => {
-    console.log(req.body.itemName);
+    
     if(req.user.scores >= 10) {
         User.updateOne({_id: req.user._id}, {
             $push : { items : req.body.itemName },

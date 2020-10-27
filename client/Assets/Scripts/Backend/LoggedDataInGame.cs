@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class LoggedDataInGame : MonoBehaviour
 {
-    private User currUser = new User();
+    public User currUser = new User();
     public Text currUsername;
     public Text currUserscores;
-    public GameObject cat;
+    public GameObject Cat1, Cat2, Cat3;
+    public int countCat = 0;
 
     private void Start() {
         StartCoroutine(GetUserData());
@@ -43,25 +44,24 @@ public class LoggedDataInGame : MonoBehaviour
 
             yield return www.SendWebRequest();
 
-            if (www.isHttpError || www.isNetworkError) {
-                Debug.Log(www.error);
-            }
-            else {
-                Debug.Log(www.downloadHandler.text);
-                currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
-                currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
-                currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
-                currUsername.text = currUser.username;
-                currUserscores.text = currUser.scores.ToString();
+        if (www.isHttpError || www.isNetworkError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log(www.downloadHandler.text);
+            currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
+            currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+            currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
+            currUsername.text = currUser.username;
+            currUserscores.text = currUser.scores.ToString();
 
-                foreach (string x in currUser.items)
-                {
-                    if (x.Equals("cat1"))
-                    {
-                        Instantiate(cat, new Vector3(0, 0, 0), Quaternion.identity);
-                    }
-                }
+            if(countCat < currUser.items.Length)
+            {
+                itemSearch(countCat, currUser.items);
             }
+        }
         //}
     }
 
@@ -75,5 +75,26 @@ public class LoggedDataInGame : MonoBehaviour
             Debug.Log("Your Score will records right way.");
         }
         StartCoroutine(GetUserData());
+    }
+
+    public void itemSearch(int start, string[] items) {
+        for (int i = start; i < items.Length; ++i) {
+            Vector3 randomPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), Camera.main.farClipPlane / 2));
+            if (items[i].Equals("Cat1"))
+            {
+                Instantiate(Cat1, randomPos, Quaternion.identity);
+                ++countCat;
+            }
+            else if (items[i].Equals("Cat2"))
+            {
+                Instantiate(Cat2, randomPos, Quaternion.identity);
+                ++countCat;
+            }
+            else if (items[i].Equals("Cat3"))
+            {
+                Instantiate(Cat3, randomPos, Quaternion.identity);
+                ++countCat;
+            }
+        }
     }
 }

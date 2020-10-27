@@ -6,8 +6,15 @@ using UnityEngine.Networking;
 public class BuyItem : MonoBehaviour
 {
     public Image currImg;
+    public GameObject logged;
+    private LoggedDataInGame data;
+    private void Start()
+    {
+        data = logged.GetComponent<LoggedDataInGame>();
+    }
     public void CatBringButton() {
         StartCoroutine(BuyItemForm(currImg.gameObject.name));
+        StartCoroutine(GetUserData());
     }
 
     IEnumerator BuyItemForm(string name) {
@@ -20,6 +27,7 @@ public class BuyItem : MonoBehaviour
             Debug.Log(www.error);
         } else {
             Debug.Log("Your Score will records right way.");
+            
         }
     }
 
@@ -33,10 +41,12 @@ public class BuyItem : MonoBehaviour
                 Debug.Log(www.error);
             } else {
                 Debug.Log(www.downloadHandler.text);
-                //currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
-                //currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
-                //currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
-                //currUserscores.text = currUser.scores.ToString();
+                data.currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
+                data.currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                data.currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
+                data.currUsername.text = data.currUser.username;
+                data.currUserscores.text = data.currUser.scores.ToString();
+                data.itemSearch(data.countCat, data.currUser.items);
             }
         //}
     }
