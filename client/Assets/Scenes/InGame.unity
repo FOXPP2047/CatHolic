@@ -1163,6 +1163,7 @@ GameObject:
   - component: {fileID: 948313866}
   - component: {fileID: 948313867}
   - component: {fileID: 948313868}
+  - component: {fileID: 948313869}
   m_Layer: 0
   m_Name: ConnectionObj
   m_TagString: Untagged
@@ -1214,7 +1215,7 @@ MonoBehaviour:
     items: []
   currUsername: {fileID: 1137471750}
   currUserscores: {fileID: 506114355}
-  Cat1: {fileID: 5479725015540358483, guid: eae29fb62fd307c40ba5905eddcebf90, type: 3}
+  Cat1: {fileID: 1526554761915109350, guid: 076879464bd682945aa7cd31ae139a36, type: 3}
   Cat2: {fileID: 7825254897394577688, guid: 2906694089ae8204196912158649c249, type: 3}
   Cat3: {fileID: 109927473368797363, guid: 5d877d03896edb24796232cb00e0cf26, type: 3}
   countCat: 0
@@ -1245,6 +1246,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemStoreFrame: {fileID: 516081436}
+--- !u!114 &948313869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948313863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf24d4830ac93be44a68a20e3f7bb2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &955718981
 GameObject:
   m_ObjectHideFlags: 0

@@ -82,7 +82,7 @@ public class LoggedDataInGame : MonoBehaviour
             Vector3 randomPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(0, Screen.width), Random.Range(0, Screen.height), Camera.main.farClipPlane / 2));
             if (items[i].Equals("Cat1"))
             {
-                Instantiate(Cat1, randomPos, Quaternion.identity);
+                Instantiate(Cat1, randomPos, Cat1.transform.rotation);
                 ++countCat;
             }
             else if (items[i].Equals("Cat2"))
