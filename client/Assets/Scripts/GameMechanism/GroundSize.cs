@@ -8,6 +8,7 @@ public class GroundSize : MonoBehaviour
 
     void Start()
     {
+        Camera.main.orthographicSize = (float)Screen.height / (float)Screen.width * 2f;
         //float depth = this.transform.lossyScale.z;
         //float width = this.transform.lossyScale.x;
         //float height = this.transform.lossyScale.y;
@@ -32,6 +33,6 @@ public class GroundSize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Camera.main.orthographicSize = (float)Screen.height / (float)Screen.width * 2f;
     }
 }
