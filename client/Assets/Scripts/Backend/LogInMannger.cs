@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LogInMannger : MonoBehaviour
 {
@@ -75,6 +74,7 @@ public class LogInMannger : MonoBehaviour
 
         string storedCookie = www.GetResponseHeader(COOKIE_HEADER_KEY);
         WebServices.CookieString = storedCookie;
+        
         if (www.isNetworkError || www.isHttpError) {
             Debug.Log(www.error);
             errorMessageBox.gameObject.SetActive(true);
@@ -82,11 +82,12 @@ public class LogInMannger : MonoBehaviour
             errorMessage.text = www.error;
             errorMessageBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
             errorMessage.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
+            loginCoroutine = null;
         } else { 
             Debug.Log("LogIn Form submitted correctly " + www.downloadHandler.text);
             isLoggedin = true;
         }
-        GetLoggedData();
+        //GetLoggedData();
     }
 
     IEnumerator GetUserData() {
@@ -103,10 +104,13 @@ public class LogInMannger : MonoBehaviour
                 errorMessage.text = www.error;
                 errorMessageBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
                 errorMessage.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
-            } else { 
+            } else {
                 Debug.Log(www.downloadHandler.text);
-                currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
-                currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                currUser = JsonUtility.FromJson<User>(www.downloadHandler.text);
+                if (currUser.username != "") {
+                    currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
+                    currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                }
             }
         //} else {
            // Debug.Log("CookieString is null or empty");
