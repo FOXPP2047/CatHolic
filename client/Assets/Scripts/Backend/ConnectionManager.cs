@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ConnectionManager : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class ConnectionManager : MonoBehaviour
             errorMessage.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
         } else {
             Debug.Log("Form submitted correctly " + www.downloadHandler.text);
+            SceneManager.LoadScene("SignIn");
         }
 
         registerationCoroutine = null;

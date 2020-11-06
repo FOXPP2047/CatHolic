@@ -14,7 +14,6 @@ public class BuyItem : MonoBehaviour
     }
     public void CatBringButton() {
         StartCoroutine(BuyItemForm(currImg.gameObject.name));
-        StartCoroutine(GetUserData());
     }
 
     IEnumerator BuyItemForm(string name) {
@@ -27,7 +26,7 @@ public class BuyItem : MonoBehaviour
             Debug.Log(www.error);
         } else {
             Debug.Log("Your Score will records right way.");
-            
+            StartCoroutine(GetUserData());
         }
     }
 

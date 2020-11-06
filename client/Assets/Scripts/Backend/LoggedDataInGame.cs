@@ -40,9 +40,9 @@ public class LoggedDataInGame : MonoBehaviour
     }
     IEnumerator GetUserData() {
         //if (string.IsNullOrEmpty(WebServices.CookieString)) {
-            UnityWebRequest www = WebServices.Authenticated_Get("me");
+        UnityWebRequest www = WebServices.Authenticated_Get("me");
 
-            yield return www.SendWebRequest();
+        yield return www.SendWebRequest();
 
         if (www.isHttpError || www.isNetworkError)
         {
@@ -80,19 +80,21 @@ public class LoggedDataInGame : MonoBehaviour
     public void itemSearch(int start, string[] items) {
         for (int i = start; i < items.Length; ++i) {
             Vector3 randomPos = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range((float)Screen.width * 0.1f, (float)Screen.width * 0.9f), Random.Range((float)Screen.height / 2, (float)Screen.height * 0.7f), Camera.main.farClipPlane / 2));
+            //Quaternion randomRotation = new Quaternion(Cat1.transform.rotation.x, Cat1.transform.rotation.y, Cat1.transform.rotation.z, );
+            Quaternion randomRotation = Quaternion.AngleAxis((float)Random.Range(120, 180), new Vector3(0, 1, 0));
             if (items[i].Equals("Cat1"))
             {
-                Instantiate(Cat1, randomPos, Cat1.transform.rotation);
+                Instantiate(Cat1, randomPos, randomRotation);
                 ++countCat;
             }
             else if (items[i].Equals("Cat2"))
             {
-                Instantiate(Cat2, randomPos, Cat2.transform.rotation);
+                Instantiate(Cat2, randomPos, randomRotation);
                 ++countCat;
             }
             else if (items[i].Equals("Cat3"))
             {
-                Instantiate(Cat3, randomPos, Cat3.transform.rotation);
+                Instantiate(Cat3, randomPos, randomRotation);
                 ++countCat;
             }
         }
