@@ -7,7 +7,7 @@ public class SwipeScreen : MonoBehaviour
     private Transform cameraTransform;
 
     public GameObject[] grounds;
-    private int i = 0;
+    public int i = 0;
     
     Vector2 firstPressPos;
     Vector2 secondPressPos;
@@ -43,7 +43,6 @@ public class SwipeScreen : MonoBehaviour
                 //create vector from the two points
                 currentSwipe = new Vector3(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
                 float size = Mathf.Abs(currentSwipe.x);
-                Debug.Log(size);
                 //normalize the 2d vector
                 currentSwipe.Normalize();
 
@@ -69,7 +68,6 @@ public class SwipeScreen : MonoBehaviour
                         Camera.main.transform.position = endPos;// Vector3.Lerp(Camera.main.transform.position, endPos, Time.deltaTime * 100);
                                                                 //Camera.main.transform.Translate(grounds[i].transform.position.x, cameraTransform.position.y, cameraTransform.position.z);
                     }
-                    Debug.Log("left swipe");
                 }
                 //swipe right
                 if (size > 150.0f && currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
@@ -81,7 +79,6 @@ public class SwipeScreen : MonoBehaviour
                         Camera.main.transform.position = endPos;// Vector3.Lerp(Camera.main.transform.position, endPos, Time.deltaTime * 100);
                                                                 //Camera.main.transform.Translate(grounds[i].transform.position.x, cameraTransform.position.y, cameraTransform.position.z);
                     }
-                    Debug.Log("right swipe");
                 }
             }
         }
@@ -99,7 +96,6 @@ public class SwipeScreen : MonoBehaviour
             //create vector from the two points
             currentSwipe = new Vector2(secondPressPos.x - firstPressPos.x, secondPressPos.y - firstPressPos.y);
             float size = Mathf.Abs(currentSwipe.x);
-            Debug.Log(size);
             //normalize the 2d vector
             currentSwipe.Normalize();
 
@@ -123,7 +119,6 @@ public class SwipeScreen : MonoBehaviour
                     Camera.main.transform.position = endPos;// Vector3.Lerp(Camera.main.transform.position, endPos, Time.deltaTime * 100);
                     //Camera.main.transform.Translate(grounds[i].transform.position.x, cameraTransform.position.y, cameraTransform.position.z);
                 }                
-                Debug.Log("left swipe");
             }
             //swipe right
             if (size > 150.0f && currentSwipe.x > 0 && currentSwipe.y > -0.5f && currentSwipe.y < 0.5f)
@@ -135,7 +130,6 @@ public class SwipeScreen : MonoBehaviour
                     Camera.main.transform.position = endPos;// Vector3.Lerp(Camera.main.transform.position, endPos, Time.deltaTime * 100);
                     //Camera.main.transform.Translate(grounds[i].transform.position.x, cameraTransform.position.y, cameraTransform.position.z);
                 }
-                Debug.Log("right swipe");
             }
         }
     }

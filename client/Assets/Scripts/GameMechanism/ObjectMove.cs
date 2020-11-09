@@ -30,7 +30,12 @@ public class ObjectMove : MonoBehaviour
                 //Cat Layer
                 if (hit.transform.gameObject.layer == 9)
                 {
-                    hit.transform.position = new Vector3(hit.point.x, hit.point.y - 0.5f, hit.point.z);
+                    //Vector3 localHit = hit.transform.position;
+                    //hit.transform.position = new Vector3(hit.point.x, hit.point.y - 0.5f, hit.point.z);
+                    Vector3 pos = hit.point;
+                    pos.y -= 0.5f;
+                    pos.z = 100;
+                    hit.transform.position = pos;
                     ismoving = true;
                 }
                 else ismoving = false;
@@ -47,7 +52,10 @@ public class ObjectMove : MonoBehaviour
                 //Cat Layer
                 if (hit.transform.gameObject.layer == 9)
                 {
-                    hit.transform.position = hit.point;
+                    Vector3 pos = hit.point;
+                    pos.y -= 0.5f;
+                    pos.z = 100;
+                    hit.transform.position = pos;
                     ismoving = true;
                 }
                 else ismoving = false;

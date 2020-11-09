@@ -64,10 +64,13 @@ public class LogInMannger : MonoBehaviour
         l_password.text = "";
     }
     IEnumerator SubmitLoginForm(string username, string password) {
+        string currTime = System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        
         WWWForm form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password", password);
-        
+        form.AddField("time", currTime);
+
         UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "login", form);
 
         yield return www.SendWebRequest();
@@ -92,7 +95,6 @@ public class LogInMannger : MonoBehaviour
 
     IEnumerator GetUserData() {
         //if(string.IsNullOrEmpty(WebServices.CookieString)) {
-            //Debug.Log("Here in");
             UnityWebRequest www = WebServices.Authenticated_Get("me");
 
             yield return www.SendWebRequest();
@@ -123,4 +125,7 @@ public class User {
     public string username;
     public int scores;
     public string[] items;
+    public int[] locations;
+    public string recentLogin;
+    public string recentLogout;
 }

@@ -18,7 +18,7 @@ public class TappingButton : MonoBehaviour
             Debug.Log(www.error);
         }
         else {
-            Debug.Log("Your Score will records right way.");
+            //Debug.Log("Your Score will records right way.");
         }
         GetLoggedData();
     }
@@ -33,7 +33,7 @@ public class TappingButton : MonoBehaviour
                 Debug.Log(www.error);
             } else {
                 Debug.Log(www.downloadHandler.text);
-                currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
+                //currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
             }
         } else {
