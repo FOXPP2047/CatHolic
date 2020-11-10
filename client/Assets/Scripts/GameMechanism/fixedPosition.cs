@@ -14,6 +14,10 @@ public class fixedPosition : MonoBehaviour
     void Update()
     {
         if (this.gameObject.transform.position.y < -0.5f)
-            this.gameObject.transform.position.Set(this.gameObject.transform.position.x, 0, this.gameObject.transform.position.z);
+        {
+            Vector3 newPos = new Vector3(this.gameObject.transform.position.x, 5, this.gameObject.transform.position.z);
+            this.gameObject.transform.position = newPos;
+        }
+            
     }
 }

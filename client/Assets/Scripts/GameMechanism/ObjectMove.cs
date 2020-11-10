@@ -5,62 +5,64 @@ using UnityEngine;
 public class ObjectMove : MonoBehaviour
 {
     private SwipeScreen ss;
+    private OpenStore os;
+    private LoggedDataInGame logged;
     private bool ismoving;
+    private RaycastHit? tempRaycastHit = null;
     private void Start()
     {
         ss = this.GetComponent<SwipeScreen>();
+        os = this.GetComponent<OpenStore>();
+        logged = this.GetComponent<LoggedDataInGame>();
         ismoving = false;
     }
     void Update()
     {
-        ObjectMovement();
+        if(!os.ItemStoreFrame.IsActive() && !logged.timeManagerBox.IsActive())
+            ObjectMovement();
 
-        if (!ismoving) ss.Swipe();
+        if (!ismoving)
+            ss.Swipe();
     }
 
     void ObjectMovement()
     {
-        if (Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0) || ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began)))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hit))
+            if(Physics.Raycast(ray, out hit))
             {
-                //Cat Layer
                 if (hit.transform.gameObject.layer == 9)
                 {
-                    //Vector3 localHit = hit.transform.position;
-                    //hit.transform.position = new Vector3(hit.point.x, hit.point.y - 0.5f, hit.point.z);
-                    Vector3 pos = hit.point;
-                    pos.y -= 0.5f;
-                    pos.z = 100;
-                    hit.transform.position = pos;
-                    ismoving = true;
+                    tempRaycastHit = hit;
                 }
-                else ismoving = false;
+                else tempRaycastHit = null;
             }
-            else ismoving = false;
         }
-        else if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+        if (Input.GetMouseButton(0) || Input.touchCount > 0)
+        {
+            if(tempRaycastHit.HasValue)
             {
-                //Cat Layer
-                if (hit.transform.gameObject.layer == 9)
-                {
-                    Vector3 pos = hit.point;
-                    pos.y -= 0.5f;
-                    pos.z = 100;
-                    hit.transform.position = pos;
-                    ismoving = true;
-                }
-                else ismoving = false;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                tempRaycastHit.Value.rigidbody.useGravity = false;
+                Vector3 pos = ray.origin + ray.direction * tempRaycastHit.Value.distance;
+                pos.y -= 0.5f;
+                pos.z = 100f;
+                tempRaycastHit.Value.transform.position = pos;
+                ismoving = true;
             }
-            else ismoving = false;
+        }
+        else if (Input.GetMouseButtonUp(0) || Input.touchCount <= 0)
+        {
+            if (tempRaycastHit.HasValue)
+            {
+                tempRaycastHit.Value.rigidbody.useGravity = true;
+                tempRaycastHit = null;
+            }
+            ismoving = false;
         }
     }
 }
