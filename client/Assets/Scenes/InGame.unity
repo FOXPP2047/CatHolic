@@ -3932,7 +3932,7 @@ MonoBehaviour:
     recentLogout: 
   currUsername: {fileID: 1137471750}
   currUserscores: {fileID: 506114355}
-  Cat1: {fileID: 1244947889254804, guid: 8a55a578d4eb62a46a1053023a24fda5, type: 3}
+  Cat1: {fileID: 1846240791585820, guid: e0a3bf07e0a7fa64f80251c1846f7a8f, type: 3}
   Cat2: {fileID: 1488150872373936, guid: 685eac5161153dc41bba27c1516369d7, type: 3}
   Cat3: {fileID: 1457120309417406, guid: c71602fc585238b40877d665c81d5ef9, type: 3}
   Cat4: {fileID: 1375922748663484, guid: c8fd6df8797aa154eb152eb8b82b4acd, type: 3}
@@ -3968,6 +3968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf24d4830ac93be44a68a20e3f7bb2b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isClicked: 0
 --- !u!114 &948313870
 MonoBehaviour:
   m_ObjectHideFlags: 0

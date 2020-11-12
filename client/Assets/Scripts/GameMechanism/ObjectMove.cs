@@ -4,25 +4,22 @@ using UnityEngine;
 
 public class ObjectMove : MonoBehaviour
 {
-    private SwipeScreen ss;
     private OpenStore os;
     private LoggedDataInGame logged;
-    private bool ismoving;
+    public bool ismoving;
     private RaycastHit? tempRaycastHit = null;
+    public bool isClicked;
     private void Start()
     {
-        ss = this.GetComponent<SwipeScreen>();
         os = this.GetComponent<OpenStore>();
         logged = this.GetComponent<LoggedDataInGame>();
         ismoving = false;
+        isClicked = false;
     }
     void Update()
     {
-        if(!os.ItemStoreFrame.IsActive() && !logged.timeManagerBox.IsActive())
+        if (!os.ItemStoreFrame.IsActive() && !logged.timeManagerBox.IsActive())
             ObjectMovement();
-
-        if (!ismoving)
-            ss.Swipe();
     }
 
     void ObjectMovement()
