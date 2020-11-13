@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class catAnimator : MonoBehaviour
+public class CatAnimator : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody rigidbody;
