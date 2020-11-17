@@ -124,6 +124,7 @@ public class LogInMannger : MonoBehaviour
 public class User {
     public string username;
     public int scores;
+    public int updates;
     public string[] items;
     public int[] locations;
     public string recentLogin;

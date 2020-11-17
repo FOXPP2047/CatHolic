@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwipeScreen : MonoBehaviour
 {
+    private OpenStore os;
     private Transform cameraTransform;
     private ObjectMove om;
     public GameObject[] grounds;
@@ -15,6 +16,7 @@ public class SwipeScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        os = this.GetComponent<OpenStore>();
         om = this.GetComponent<ObjectMove>();
         cameraTransform = Camera.main.transform;
         i = 0;
@@ -28,7 +30,7 @@ public class SwipeScreen : MonoBehaviour
 
     public void Swipe()
     {
-        if(!om.ismoving)
+        if(!om.ismoving && !os.ItemStoreFrame.IsActive())
         {
             if (Input.touches.Length > 0)
             {

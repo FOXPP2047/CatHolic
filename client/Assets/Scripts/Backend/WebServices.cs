@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class WebServices : MonoBehaviour
 {
-    public static readonly string mainUrl = "http://52.13.57.174:8000/"; //"http://localhost:8000/";//
+    public static readonly string mainUrl = "http://52.13.57.174:8000/";//"http://localhost:8000/";
 
     public static string CookieString {
         get {

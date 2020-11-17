@@ -36,6 +36,8 @@ public class StoreButton : MonoBehaviour
     }
     IEnumerator UpdatingButtonScore()
     {
+        WWWForm form = new WWWForm();
+        form.AddField("itemName", "cat1");
         UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "updatebutton", "true");
         yield return www.SendWebRequest();
 

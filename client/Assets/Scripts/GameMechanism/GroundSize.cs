@@ -5,10 +5,13 @@ using UnityEngine;
 public class GroundSize : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    private float longer;
+    private float shorter;
     void Start()
     {
-        Camera.main.orthographicSize = (float)Screen.height / (float)Screen.width * 2f;
+        longer = Screen.height > Screen.width ? (float)Screen.height : (float)Screen.width;
+        shorter = Screen.height > Screen.width ? (float)Screen.width : (float)Screen.height;
+        Camera.main.orthographicSize = longer / shorter * 2f;
         //float depth = this.transform.lossyScale.z;
         //float width = this.transform.lossyScale.x;
         //float height = this.transform.lossyScale.y;
@@ -33,6 +36,6 @@ public class GroundSize : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Camera.main.orthographicSize = (float)Screen.height / (float)Screen.width * 2f;
+        Camera.main.orthographicSize = longer / shorter * 2f;
     }
 }

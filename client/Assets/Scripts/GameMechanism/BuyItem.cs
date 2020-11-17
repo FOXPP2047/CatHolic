@@ -15,12 +15,12 @@ public class BuyItem : MonoBehaviour
         screen = logged.GetComponent<SwipeScreen>();
     }
     public void CatBringButton() {
-        Debug.Log(currImg.gameObject.name);
         StartCoroutine(BuyItemForm(currImg.gameObject.name, screen.i));
     }
 
     IEnumerator BuyItemForm(string name, int location) {
         WWWForm form = new WWWForm();
+        form.AddField("number", data.userScores);
         form.AddField("itemName", name);
         form.AddField("itemLocation", location);
         UnityWebRequest www = UnityWebRequest.Post(WebServices.mainUrl + "buy", form);
@@ -46,6 +46,9 @@ public class BuyItem : MonoBehaviour
                 Debug.Log(www.downloadHandler.text);
                 data.currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
                 data.currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+                data.userScores = data.currUser.scores;
+                data.currUser.updates = JsonUtility.FromJson<User>(www.downloadHandler.text).updates;
+                data.updateScores = data.currUser.updates;
                 data.currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
                 data.currUser.locations = JsonUtility.FromJson<User>(www.downloadHandler.text).locations;
                 data.currUsername.text = data.currUser.username;
