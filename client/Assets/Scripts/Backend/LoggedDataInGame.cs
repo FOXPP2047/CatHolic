@@ -20,6 +20,9 @@ public class LoggedDataInGame : MonoBehaviour
     private bool isLogin = false;
     public bool recentLogin = false;
     public int totalTime = 0;
+
+    public ParticleSystem ps;
+
     private void Awake() {
         isLogin = false;
         recentLogin = false;
@@ -29,6 +32,7 @@ public class LoggedDataInGame : MonoBehaviour
     private void Start() {
         countCat = 0;
         StartCoroutine(GetUserData());
+        ps.Stop();
     }
 
     private void Update()
@@ -44,6 +48,8 @@ public class LoggedDataInGame : MonoBehaviour
         StartCoroutine(GetUserData());
     }
     public void GetScore() {
+        ps.Stop();
+        ps.Play();
         userScores += updateScores;
         //StartCoroutine(SubmitScoreForm());
         //StartCoroutine(GetUserData());
