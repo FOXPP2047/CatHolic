@@ -31,6 +31,10 @@ public class LoggedDataInGame : MonoBehaviour
         StartCoroutine(GetUserData());
     }
 
+    private void Update()
+    {
+        currUserscores.text = userScores.ToString();
+    }
     public void LogOut() {
         StartCoroutine(GetLogOut());
         SceneManager.LoadScene("SignIn");
@@ -41,7 +45,6 @@ public class LoggedDataInGame : MonoBehaviour
     }
     public void GetScore() {
         userScores += updateScores;
-        currUserscores.text = userScores.ToString();
         //StartCoroutine(SubmitScoreForm());
         //StartCoroutine(GetUserData());
     }
@@ -291,9 +294,9 @@ public class LoggedDataInGame : MonoBehaviour
             StartCoroutine(GetLogOut());
         }
     }
-    //private void OnApplicationQuit()
-    //{
-    //    StartCoroutine(UpdateScore());
-    //    StartCoroutine(GetLogOut());
-    //}
+    private void OnApplicationQuit()
+    {
+        StartCoroutine(UpdateScore());
+        StartCoroutine(GetLogOut());
+    }
 }
