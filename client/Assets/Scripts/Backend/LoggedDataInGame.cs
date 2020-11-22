@@ -16,6 +16,7 @@ public class LoggedDataInGame : MonoBehaviour
 
     public Image timeManagerBox;
     public Text timeManagerText;
+    public int tempScores;
 
     private bool isLogin = false;
     public bool recentLogin = false;
@@ -57,6 +58,10 @@ public class LoggedDataInGame : MonoBehaviour
 
     public void GetUpdateScore() {
         StartCoroutine(UpdatingButtonScore());
+        StartCoroutine(GetPureData());
+    }
+    public void GetPureDataOnly()
+    {
         StartCoroutine(GetPureData());
     }
     IEnumerator UpdateScore() {
@@ -105,12 +110,14 @@ public class LoggedDataInGame : MonoBehaviour
             updateScores = currUser.updates;
             currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
             currUser.locations = JsonUtility.FromJson<User>(www.downloadHandler.text).locations;
+            currUser.autoCount = JsonUtility.FromJson<User>(www.downloadHandler.text).autoCount;
+            currUser.autoTime = JsonUtility.FromJson<User>(www.downloadHandler.text).autoTime;
             currUser.recentLogin = JsonUtility.FromJson<User>(www.downloadHandler.text).recentLogin;
             currUser.recentLogout = JsonUtility.FromJson<User>(www.downloadHandler.text).recentLogout;
             
             currUsername.text = currUser.username;
             currUserscores.text = currUser.scores.ToString();
-
+            
             if(countCat < currUser.items.Length)
             {
                 itemSearchLogin(currUser.items, currUser.locations);
@@ -121,6 +128,17 @@ public class LoggedDataInGame : MonoBehaviour
                 System.DateTime login = System.DateTime.Parse(currUser.recentLogin);
                 System.DateTime logout = System.DateTime.Parse(currUser.recentLogout);
                 System.TimeSpan passed = login.Subtract(logout);
+                double totalSeconds = passed.TotalSeconds;
+                tempScores = 0;
+
+                for(int i = 0; i < currUser.autoCount.Length; ++i)
+                {
+                    if(currUser.autoCount[i] > 0)
+                    {
+                        tempScores += (int)(totalSeconds / currUser.autoTime[i]);
+                    }
+                }
+
                 double totalMinutes = passed.TotalMinutes;
                 double totalHours = passed.TotalHours;
 
@@ -131,7 +149,8 @@ public class LoggedDataInGame : MonoBehaviour
                     timeManagerBox.gameObject.SetActive(true);
                     timeManagerText.gameObject.SetActive(true);
 
-                    timeManagerText.text = "You logged in " + totalTime.ToString() + " " + str;
+                    timeManagerText.text = "You logged in " + totalTime.ToString() + " " + str;// + 
+                        //"\n" + "You earns " + tempScores.ToString() + " points by Auto Clicker Cat!!";
                     timeManagerBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
                     timeManagerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
                 }
@@ -169,32 +188,38 @@ public class LoggedDataInGame : MonoBehaviour
             Quaternion randomRotation = Quaternion.AngleAxis((float)Random.Range(120, 180), new Vector3(0, 1, 0));
             if (items[i].Equals("Cat1"))
             {
-                Instantiate(Cat1, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat1, randomPos, randomRotation);
+                temp.name = "Cat1-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat2"))
             {
-                Instantiate(Cat2, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat2, randomPos, randomRotation);
+                temp.name = "Cat2-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat3"))
             {
-                Instantiate(Cat3, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat3, randomPos, randomRotation);
+                temp.name = "Cat3-" + i.ToString();
                 ++countCat;
             }
             else if(items[i].Equals("Cat4"))
             {
-                Instantiate(Cat4, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat4, randomPos, randomRotation);
+                temp.name = "Cat4-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat5"))
             {
-                Instantiate(Cat5, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat5, randomPos, randomRotation);
+                temp.name = "Cat5-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat6"))
             {
-                Instantiate(Cat6, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat6, randomPos, randomRotation);
+                temp.name = "Cat6-" + i.ToString();
                 ++countCat;
             }
         }
@@ -218,32 +243,38 @@ public class LoggedDataInGame : MonoBehaviour
             Quaternion randomRotation = Quaternion.AngleAxis((float)Random.Range(120, 180), new Vector3(0, 1, 0));
             if (items[i].Equals("Cat1"))
             {
-                Instantiate(Cat1, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat1, randomPos, randomRotation);
+                temp.name = "Cat1-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat2"))
             {
-                Instantiate(Cat2, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat2, randomPos, randomRotation);
+                temp.name = "Cat2-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat3"))
             {
-                Instantiate(Cat3, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat3, randomPos, randomRotation);
+                temp.name = "Cat3-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat4"))
             {
-                Instantiate(Cat4, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat4, randomPos, randomRotation);
+                temp.name = "Cat4-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat5"))
             {
-                Instantiate(Cat5, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat5, randomPos, randomRotation);
+                temp.name = "Cat5-" + i.ToString();
                 ++countCat;
             }
             else if (items[i].Equals("Cat6"))
             {
-                Instantiate(Cat6, randomPos, randomRotation);
+                GameObject temp = Instantiate(Cat6, randomPos, randomRotation);
+                temp.name = "Cat6-" + i.ToString();
                 ++countCat;
             }
         }
@@ -266,10 +297,12 @@ public class LoggedDataInGame : MonoBehaviour
             currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
             currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
             userScores = currUser.scores;
-            Debug.Log(userScores);
             currUser.updates = JsonUtility.FromJson<User>(www.downloadHandler.text).updates;
             updateScores = currUser.updates;
-            Debug.Log(updateScores);
+
+            currUser.autoCount = JsonUtility.FromJson<User>(www.downloadHandler.text).autoCount;
+            currUser.autoTime = JsonUtility.FromJson<User>(www.downloadHandler.text).autoTime;
+
             currUsername.text = currUser.username;
             currUserscores.text = currUser.scores.ToString();
         }

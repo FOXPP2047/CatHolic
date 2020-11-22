@@ -11,6 +11,8 @@ public class OpenStore : MonoBehaviour
     Vector2 firstPressPos;
     Vector2 secondPressPos;
     Vector2 currentSwipe;
+
+    public Camera camera;
     void Start()
     {
         ItemStoreFrame.color = new Color32(0, 0, 0, 180);
@@ -40,16 +42,24 @@ public class OpenStore : MonoBehaviour
     }
 
     public void CloseStoreButton() {
-        Camera camera = null;
-
-        if(Input.GetMouseButton(0)) {
+        if (Input.GetMouseButton(0)) {
             RectTransform rectTransform = ItemStoreFrame.GetComponent<RectTransform>();
-
-            if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition, camera))
+            
+            if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, (Input.mousePosition), camera))
             {
                 ItemStoreFrame.gameObject.SetActive(false);
                 UpdateStoreFrame.gameObject.SetActive(false);
             } 
+        }
+
+        if(Input.touches.Length > 0) {
+            RectTransform rectTransform = ItemStoreFrame.GetComponent<RectTransform>();
+
+            if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, (Input.GetTouch(0).position), camera))
+            {
+                ItemStoreFrame.gameObject.SetActive(false);
+                UpdateStoreFrame.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -133,11 +143,11 @@ public class OpenStore : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        if (ItemStoreFrame.IsActive() || UpdateStoreFrame.IsActive()) {
-            SwipeStore();
-            CloseStoreButton();
-        }
-    }
+    //void Update()
+    //{
+    //    if (ItemStoreFrame.IsActive() || UpdateStoreFrame.IsActive()) {
+    //        SwipeStore();
+    //        CloseStoreButton();
+    //    }
+    //}
 }

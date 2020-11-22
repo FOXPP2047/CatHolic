@@ -8,6 +8,7 @@ public class SwipeScreen : MonoBehaviour
     private Transform cameraTransform;
     private ObjectMove om;
     public GameObject[] grounds;
+    [HideInInspector]
     public int i = 0;
     
     Vector2 firstPressPos;
@@ -25,12 +26,18 @@ public class SwipeScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Swipe();
+        if(!os.ItemStoreFrame.IsActive() && !os.UpdateStoreFrame.IsActive())
+            Swipe();
+        else if(os.ItemStoreFrame.IsActive() || os.UpdateStoreFrame.IsActive())
+        {
+            os.SwipeStore();
+            os.CloseStoreButton();
+        }
     }
 
     public void Swipe()
     {
-        if(!om.ismoving && !os.ItemStoreFrame.IsActive())
+        if(!om.ismoving)
         {
             if (Input.touches.Length > 0)
             {

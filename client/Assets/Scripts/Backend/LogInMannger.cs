@@ -125,8 +125,10 @@ public class User {
     public string username;
     public int scores;
     public int updates;
-    public string[] items;
+    public string[] items;    
     public int[] locations;
+    public int[] autoCount;
+    public int[] autoTime;
     public string recentLogin;
     public string recentLogout;
 }

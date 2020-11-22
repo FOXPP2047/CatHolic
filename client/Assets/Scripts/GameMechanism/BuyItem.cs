@@ -51,6 +51,8 @@ public class BuyItem : MonoBehaviour
                 data.updateScores = data.currUser.updates;
                 data.currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
                 data.currUser.locations = JsonUtility.FromJson<User>(www.downloadHandler.text).locations;
+                data.currUser.autoCount = JsonUtility.FromJson<User>(www.downloadHandler.text).autoCount;
+                data.currUser.autoTime = JsonUtility.FromJson<User>(www.downloadHandler.text).autoTime;
                 data.currUsername.text = data.currUser.username;
                 data.currUserscores.text = data.currUser.scores.ToString();
                 data.itemSearch(data.countCat, data.currUser.items, data.currUser.locations);
