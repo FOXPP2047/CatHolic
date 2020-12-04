@@ -18,7 +18,7 @@ public class FadeOut : MonoBehaviour
     private eFadeType fadeType = eFadeType.fadeOut;
 
     [SerializeField]
-    private float fadingDuration = 100.0f;
+    private float fadingDuration = 30000.0f;
     private float fadeSpeed = 1.0f;
 
     private CanvasGroup canvasGroup;
@@ -45,7 +45,7 @@ public class FadeOut : MonoBehaviour
         {
             fadeSpeed = 1 / fadingDuration;
         }
-
+        
         StartFading();
     }
 

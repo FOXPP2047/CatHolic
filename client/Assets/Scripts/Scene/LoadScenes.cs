@@ -12,4 +12,8 @@ public class LoadScenes : MonoBehaviour
     public void LoadSignUpScene() {
         SceneManager.LoadScene("SignUp");
     }
+
+    public void LoadCreditScene() {
+        SceneManager.LoadScene("Credit");
+    }
 }
