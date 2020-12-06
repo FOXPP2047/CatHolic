@@ -19,7 +19,7 @@ public class TimeBoxManager : MonoBehaviour
     public void ConfirmMessageBox()
     {
         StartCoroutine(SubmitRecentLoginForm());
-        logged.userScores += logged.tempScores;
+        logged.userScores += logged.totalTime;
         logged.GetScoreUpdate();
         image.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         text.GetComponent<Text>().color = new Color32(0, 0, 0, 0);

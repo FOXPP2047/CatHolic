@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MakeScreenSize : MonoBehaviour
+public class LogoSize : MonoBehaviour
 {
     private Image img;
     // Start is called before the first frame update
@@ -17,12 +17,12 @@ public class MakeScreenSize : MonoBehaviour
         img.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
         img.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
-        img.GetComponent<RectTransform>().anchorMin = new Vector2(rectMiddle.x - horizontalSize / 2, rectMiddle.y - verticalSize / 2);
-        img.GetComponent<RectTransform>().anchorMax = new Vector2(rectMiddle.x + horizontalSize / 2, rectMiddle.y + verticalSize / 2);
+        img.GetComponent<RectTransform>().sizeDelta = new Vector2((float)(Screen.width), (float)(Screen.width / 4));
     }
 
     // Update is called once per frame
     void Update()
     {
+        img.GetComponent<RectTransform>().sizeDelta = new Vector2((float)(Screen.width), (float)(Screen.width / 4));
     }
 }

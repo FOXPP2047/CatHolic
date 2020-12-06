@@ -20,6 +20,7 @@ public class LoggedDataInGame : MonoBehaviour
 
     private bool isLogin = false;
     public bool recentLogin = false;
+    [HideInInspector]
     public int totalTime = 0;
 
     public ParticleSystem ps;
@@ -113,7 +114,9 @@ public class LoggedDataInGame : MonoBehaviour
             Debug.Log(www.downloadHandler.text);
             currUser.username = JsonUtility.FromJson<User>(www.downloadHandler.text).username;
             currUser.scores = JsonUtility.FromJson<User>(www.downloadHandler.text).scores;
+            Debug.Log("currUser : " + currUser.scores);
             userScores = currUser.scores;
+            Debug.Log("userScores : " + userScores);
             currUser.updates = JsonUtility.FromJson<User>(www.downloadHandler.text).updates;
             updateScores = currUser.updates;
             currUser.items = JsonUtility.FromJson<User>(www.downloadHandler.text).items;
@@ -123,8 +126,6 @@ public class LoggedDataInGame : MonoBehaviour
             currUser.recentLogin = JsonUtility.FromJson<User>(www.downloadHandler.text).recentLogin;
             currUser.recentLogout = JsonUtility.FromJson<User>(www.downloadHandler.text).recentLogout;
             
-            currUsername.text = currUser.username;
-            currUserscores.text = currUser.scores.ToString();
             
             if(countCat < currUser.items.Length)
             {
@@ -161,6 +162,7 @@ public class LoggedDataInGame : MonoBehaviour
                         //"\n" + "You earns " + tempScores.ToString() + " points by Auto Clicker Cat!!";
                     timeManagerBox.GetComponent<Image>().color = new Color32(255, 255, 255, 150);
                     timeManagerText.GetComponent<Text>().color = new Color32(0, 0, 0, 255);
+                    //userScores += (int)(totalTime);
                 }
                 isLogin = true;
             }
