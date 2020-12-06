@@ -9,12 +9,29 @@ public class BuyItem : MonoBehaviour
     public GameObject logged;
     private LoggedDataInGame data;
     private SwipeScreen screen;
+    private AudioSource buyAS;
+    public Button InGameBTN;
+    private MenuSoundButton msb;
     private void Start()
     {
         data = logged.GetComponent<LoggedDataInGame>();
         screen = logged.GetComponent<SwipeScreen>();
+        buyAS = this.GetComponent<AudioSource>();
+        msb = InGameBTN.GetComponent<MenuSoundButton>();
+    }
+    private void Update()
+    {
+        if (!msb.isClicked)
+        {
+            buyAS.volume = 1.0f;
+        }
+        else
+        {
+            buyAS.volume = 0.0f;            
+        }
     }
     public void CatBringButton() {
+        buyAS.Play();
         StartCoroutine(BuyItemForm(currImg.gameObject.name, screen.i));
     }
 

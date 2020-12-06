@@ -24,6 +24,9 @@ public class LoggedDataInGame : MonoBehaviour
 
     public ParticleSystem ps;
 
+    public Button InGameBTN;
+    public Button tapping;
+    private AudioSource tapAS;
     private void Awake() {
         isLogin = false;
         recentLogin = false;
@@ -34,10 +37,14 @@ public class LoggedDataInGame : MonoBehaviour
         countCat = 0;
         StartCoroutine(GetUserData());
         ps.Stop();
+        tapAS = tapping.GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        if (!InGameBTN.GetComponent<MenuSoundButton>().isClicked)
+            tapAS.volume = 0.5f;
+        else tapAS.volume = 0.0f;
         currUserscores.text = userScores.ToString();
     }
     public void LogOut() {
@@ -51,6 +58,7 @@ public class LoggedDataInGame : MonoBehaviour
     public void GetScore() {
         ps.Stop();
         ps.Play();
+        tapAS.Play();
         userScores += updateScores;
         //StartCoroutine(SubmitScoreForm());
         //StartCoroutine(GetUserData());

@@ -20,8 +20,14 @@ public class LogInMannger : MonoBehaviour
 
     public Image errorMessageBox;
     public Text errorMessage;
+
+    //sound
+    public Button MenuSoundBtn;
+    public Button submitBtn;
+    private AudioSource submitAS;
     private void Start() {
         formSubmitted.AddListener(claerForm);
+        submitAS = submitBtn.GetComponent<AudioSource>();
         //Debug.Log(currUser.username);
         //GetLoggedData();
     }
@@ -33,6 +39,8 @@ public class LogInMannger : MonoBehaviour
         //Debug.Log(WebServices.CookieString);
     }
     public void SubmitLogInForm() {
+        if(!MenuSoundBtn.GetComponent<MenuSoundButton>().isClicked)
+            submitAS.Play();
         if (loginCoroutine == null) {
             loginCoroutine = StartCoroutine(SubmitLoginForm(l_username.text, l_password.text));
         }
